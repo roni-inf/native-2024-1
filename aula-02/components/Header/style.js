@@ -7,8 +7,10 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   titulo: {
-    color: "#ff0141",
+    color: "#ff0241",
     fontSize: 24,
     fontWeight: "bold",
+    textAlign: "center"
   },
 });
+export default styles;
