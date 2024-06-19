@@ -12,7 +12,7 @@ export default function Ajuda() {
       <Button
         title="Drawer-Home"
         onPress={() => {
-          navigation.jumpTo('Home');
+          navigation.jumpTo("Home");
         }}
       />
     </View>
