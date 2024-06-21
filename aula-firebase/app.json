@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "aula-banco",
-    "slug": "aula-banco",
+    "name": "aula-firebase",
+    "slug": "aula-firebase",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,8 +18,7 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.aula.banco"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
