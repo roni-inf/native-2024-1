@@ -1,5 +1,10 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 import { db } from "./firebaseConnection";
 import {
   doc,
@@ -12,7 +17,9 @@ import {
 import { useEffect, useState } from "react";
 
 export default function App() {
-  const [nome, setNome] = useState("Carregando....");
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [cargo, setCargo] = useState("");
 
   useEffect(() => {
     async function getDados() {
@@ -34,33 +41,49 @@ export default function App() {
   }, []);
 
   async function handleRegister() {
-    //   await setDoc(doc(db, "alunos", "10"), {
-    //     nome: "Carlos",
-    //     email: "carlos@gmail.com",
-    //     cargo: "Programador",
-    //     salario: 15000,
-    //   })
-    //     .then(() => {
-    //       console.log("Cadastro efetuado com sucesso !");
-    //     })
-    //     .catch(() => {
-    //       console.log("Erro !");
-    //     });
-    // }
-
     await addDoc(collection(db, "alunos"), {
-      nome: "Carlos",
-      email: "carlos@gmail.com",
-      cargo: "Programador",
-      salario: 15000,
-    });
+      nome: nome,
+      email: email,
+      cargo: cargo,
+    })
+      .then(() => {
+        console.log("CADASTRADO COM SUCESSO");
+        setNome("");
+        setEmail("");
+        setCargo("");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
     <View style={styles.container}>
-      <Text>{nome}</Text>
-      <TouchableOpacity style={styles.botao} onPress={handleRegister}>
-        <Text style={styles.botaoTexto}>Adicionar</Text>
+      <Text style={styles.label}>Nome:</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Digite seu nome..."
+        value={nome}
+        onChangeText={(text) => setNome(text)}
+      />
+      <Text style={styles.label}>Email:</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Digite seu email..."
+        value={email}
+        onChangeText={(text) => setEmail(text)}
+      />
+
+      <Text style={styles.label}>Cargo:</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Digite o seu cargo..."
+        value={cargo}
+        onChangeText={(text) => setCargo(text)}
+      />
+
+      <TouchableOpacity style={styles.button} onPress={handleRegister}>
+        <Text style={styles.buttonText}>Adicionar</Text>
       </TouchableOpacity>
     </View>
   );
@@ -69,14 +92,40 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    paddingTop: 40,
   },
-  botao: {
+  button: {
     backgroundColor: "#000",
+    marginLeft: 8,
+    marginRight: 8,
   },
-  botaoTexto: {
-    color: "#fff",
+  buttonText: {
+    padding: 8,
+    color: "#FFF",
+    textAlign: "center",
+  },
+  label: {
+    color: "#000",
+    fontSize: 18,
+    marginBottom: 4,
+    marginLeft: 8,
+  },
+  labelUsuarios: {
+    marginTop: 14,
+    marginLeft: 8,
+    fontSize: 20,
+    color: "#000",
+    fontWeight: "bold",
+  },
+  input: {
+    borderWidth: 1,
+    marginLeft: 8,
+    marginRight: 8,
+    marginBottom: 8,
+  },
+  list: {
+    marginTop: 8,
+    marginLeft: 8,
+    marginRight: 8,
   },
 });
